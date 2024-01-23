@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/image_intercom"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:background="#FFF"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_gallery" android:contentDescription="@string/photo_from_intercom"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_last_received_time"
+            app:layout_constraintTop_toBottomOf="@+id/image_intercom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" android:textSize="10sp" android:paddingStart="10dp"/>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:id="@+id/error_container"
+            app:layout_constraintTop_toBottomOf="@+id/image_last_received_time"
+            tools:visibility="visible">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent" tools:ignore="UselessParent">
+            <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/image_warning"
+                    app:srcCompat="@android:drawable/stat_sys_warning"
+                    app:tint="#FF0000"
+                    android:contentDescription="@string/warning"/>
+            <TextView
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_error"
+                    android:paddingStart="10dp"
+                    tools:ignore="RtlSymmetry" android:paddingEnd="30dp"/>
+        </TableRow>
+    </TableLayout>
+    <Button
+            android:text="@string/button_take_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_take_photo"
+            app:layout_constraintTop_toBottomOf="@+id/error_container"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

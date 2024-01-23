@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".view.SettingsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Button
+                android:text="@string/settings_button_save_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+        />
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_house_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="@string/settings_input_house_hint">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_house"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="48dp"
+                    android:text=""
+            />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/settings_input_flat_hint"
+                app:layout_constraintTop_toBottomOf="@+id/input_house_layout" android:id="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_flat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:height="48dp"
+                    android:text=""
+                    android:inputType="number"
+                    android:maxLength="6"
+            />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+                android:id="@+id/input_house_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="#FF0000"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

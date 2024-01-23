@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Intercom</string>
+
+    <string name="title_main">Главная</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_call">Входящий звонок</string>
+    <string name="title_calls_history">История</string>
+
+    <string name="main_greetings">Здравствуйте, вас приветствует умный домофон!</string>
+    <string name="main_go_to_settings">Перейти к настройкам</string>
+    <string name="main_retry">Попробовать еще раз</string>
+    <string name="button_retry">Получить данные</string>
+    <string name="button_take_photo">Получить фото</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="main_about">
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh. Morbi laoreet, tortor
+        sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui non lorem. Nam mollis ipsum quis auctor
+        varius. Quisque elementum eu libero sed commodo. In eros nisl, imperdiet vel imperdiet et, scelerisque a mauris.
+        Pellentesque varius ex nunc, quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non
+        viverra ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a placerat
+        diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. In volutpat arcu ut felis sagittis, in finibus massa gravida. Pellentesque id tellus orci. Integer
+        dictum, lorem sed efficitur ullamcorper, libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec
+        maximus ullamcorper sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus vestibulum. Fusce
+        dictum libero quis erat maximus, vitae volutpat diam dignissim.
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh. Morbi laoreet, tortor
+        sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui non lorem. Nam mollis ipsum quis auctor
+        varius. Quisque elementum eu libero sed commodo. In eros nisl, imperdiet vel imperdiet et, scelerisque a mauris.
+        Pellentesque varius ex nunc, quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non
+        viverra ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a placerat
+        diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+        egestas. In volutpat arcu ut felis sagittis, in finibus massa gravida. Pellentesque id tellus orci. Integer
+        dictum, lorem sed efficitur ullamcorper, libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec
+        maximus ullamcorper sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus vestibulum. Fusce
+        dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="intercom_model">Модель домофона</string>
+    <string name="empty_intercom_model">Модель домофона отсутствует</string>
+    <string name="warning">Warning</string>
+    <string name="photo_from_intercom">Изображение из домофона</string>
+    <string name="settings_input_house_hint">Введите номер дома</string>
+    <string name="settings_input_flat_hint">Введите номер квартиры</string>
+    <string name="settings_button_save_title">Сохранить</string>
+    <string name="settings_house_number_hint">Номер дома должен иметь вид *чиcло*/*английская буква от a до e* либо *число* и длину не более 4</string>
+    <string name="settings_flat_number_hint">Номер квартиры должен иметь не более 6-и символов (включительно). Можно ввести только цифры</string>
+    <string name="http_403_error">Не хватает параметров авторизации</string>
+    <string name="http_400_error">Введены неверные данные</string>
+    <string name="http_error">Ошибка в ответе сервера</string>
+    <string name="network_error">Сбой сети</string>
+    <string name="last_photo_received_time">Последний раз фото получено: %s</string>
+    <string name="missed_call_text">Пропущенный вызов</string>
+    <string name="accept_call_text">Открыть ✓</string>
+    <string name="decline_call_text">Сбросить ✖</string>
+    <string name="invalid_settings_text">Настройки домофона заполнены некорректно</string>
+    <string name="accepted_call_status_text">открыт</string>
+    <string name="declined_call_status_text">сброшен</string>
+    <string name="missed_call_status_text">пропущен</string>
+</resources>
