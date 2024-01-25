@@ -5,7 +5,7 @@
               android:orientation="vertical">
 
 
-    <TextView android:id="@+id/text_date"
+    <TextView android:id="@id/text_date"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_margin="05dp"
@@ -14,7 +14,7 @@
               android:textStyle="bold"
     />
 
-    <TextView android:id="@+id/text_status"
+    <TextView android:id="@id/text_status"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_margin="05dp"

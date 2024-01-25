@@ -1,6 +1,7 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ public class MainFragment extends BaseFragmentDisposable {
         public ReactiveProperty<LoadStatus> remoteActionStatus;
         public ReactiveProperty<LoadStatus> loadStatus;
         public ReactiveProperty<String> lastErrorDescription;
-        public ReactiveProperty<Boolean> isAppLoaded;
+        public ReactiveProperty<Boolean> isCurrentSettingsValid;
     }
 
     private Ctx _ctx;
@@ -38,47 +39,46 @@ public class MainFragment extends BaseFragmentDisposable {
     public void setCtx(Ctx ctx) {
         _ctx = ctx;
 
-        deferDispose(_ctx.loadStatus.subscribe(this::processLoadStatus));
-        deferDispose(_ctx.remoteActionStatus.subscribe(this::processLoadStatus));
-
-        _ctx.appState.isFirstRun.setValue(false);
-        _ctx.flushAppState.execute(null);
-    }
-
-    private void processLoadStatus(LoadStatus loadStatus) {
-        if (loadStatus == LoadStatus.LOADING) {
-            setFragment(LoadingFragment.class);
-        } else {
+        deferDispose(_ctx.loadStatus.skip(1).subscribe(loadStatus -> {
             showActualState();
-        }
+        }));
+        deferDispose(_ctx.remoteActionStatus.skip(1).subscribe(loadStatus -> {
+            showActualState();
+        }));
+
+        showActualState();
     }
 
     private void showActualState() {
-        if (_ctx.appState.isFirstRun.getValue()) {
-            setFragment(FirstRunFragment.class);
-        } else {
-            if (!_ctx.appState.isSettingsValid.getValue()) {
-                _ctx.lastErrorDescription.setValue(getString(R.string.invalid_settings_text));
-                setFragment(ErrorFragment.class);
-                return;
-            }
+        LoadStatus loadStatus = _ctx.loadStatus.getValue();
 
-            if (_ctx.loadStatus.getValue() == LoadStatus.FAIL) {
-                setFragment(ErrorFragment.class);
-            } else {
-                setFragment(InfoFragment.class);
-            }
+        if (loadStatus == LoadStatus.LOADING) {
+            setFragment(LoadingFragment.class);
+            return;
         }
+
+        if (loadStatus == LoadStatus.FAIL) {
+            setFragment(ErrorFragment.class);
+            return;
+        }
+ 
+        if (_ctx.appState.isFirstStart.getValue()) {
+            setFragment(FirstRunFragment.class);
+            return;
+        }
+
+        if (!_ctx.isCurrentSettingsValid.getValue()) {
+            _ctx.lastErrorDescription.setValue(getString(R.string.invalid_settings_text));
+            setFragment(ErrorFragment.class);
+            return;
+        }
+
+        setFragment(InfoFragment.class);
     }
 
     private void setFragment(Class<? extends Fragment> fragmentClass) {
-        if (_ctx.isAppLoaded.getValue()){
-            if (!isVisible()){
-                return;
-            }
-        }
-
-        getParentFragmentManager().beginTransaction()
+        getChildFragmentManager()
+                .beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.main_fragment_container_view, fragmentClass, null)
                 .commit();

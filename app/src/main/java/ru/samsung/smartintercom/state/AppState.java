@@ -9,8 +9,7 @@ public class AppState {
 
     public ReactiveProperty<String> intercomModel;
     public ReactiveProperty<String> houseNumber;
-    public ReactiveProperty<Integer> flatNumber;
-    public ReactiveProperty<Boolean> isFirstRun;
+    public ReactiveProperty<String> flatNumber;
     public ReactiveProperty<Bitmap> lastPhoto;
     public ReactiveProperty<Instant> lastPhotoReceivedTime;
     public ReactiveProperty<Instant> takePhotoTime;
@@ -19,6 +18,7 @@ public class AppState {
     public ReactiveProperty<Instant> lastReceivedCallTime;
     public ReactiveProperty<Boolean> isSettingsValid;
     public ReactiveProperty<Boolean> isIncomingChannelEstablished;
+    public ReactiveProperty<Boolean> isFirstStart;
 
     public AppState(){
 
@@ -29,10 +29,7 @@ public class AppState {
         houseNumber.setValue("");
 
         flatNumber = ReactiveProperty.create();
-        flatNumber.setValue(0);
-
-        isFirstRun = ReactiveProperty.create();
-        isFirstRun.setValue(true);
+        flatNumber.setValue("");
 
         lastPhoto = ReactiveProperty.create();
 
@@ -50,6 +47,9 @@ public class AppState {
 
         isSettingsValid = ReactiveProperty.create();
         isSettingsValid.setValue(false);
+
+        isFirstStart = ReactiveProperty.create();
+        isFirstStart.setValue(true);
 
         isIncomingChannelEstablished = ReactiveProperty.create();
         isIncomingChannelEstablished.setValue(false);

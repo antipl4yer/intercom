@@ -7,7 +7,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Converter {
     public static Integer convertCharSequenceToInteger(CharSequence value){
-        return Integer.parseInt((String) value);
+        int result = 0;
+        try {
+            result = Integer.parseInt((String) value);
+            return result;
+        } catch (NumberFormatException e) {
+            return result;
+        }
     }
 
     public static String convertCharSequenceToString(CharSequence value){

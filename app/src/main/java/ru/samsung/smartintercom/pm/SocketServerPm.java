@@ -35,12 +35,12 @@ public class SocketServerPm extends BaseDisposable {
         _ctx.socketServerWrapperService.registerIncomingCallHandler(() -> {
             _missedCallMonitorData = new SocketServerWrapperService.Data();
             _missedCallMonitorData.house = _ctx.appState.houseNumber.getValue();
-            _missedCallMonitorData.flat = _ctx.appState.flatNumber.getValue().toString();
+            _missedCallMonitorData.flat = _ctx.appState.flatNumber.getValue();
 
             _missedCallTimeoutTimer = new MainThreadTimer(() -> {
                 SocketServerWrapperService.Data data = new SocketServerWrapperService.Data();
                 data.house = _ctx.appState.houseNumber.getValue();
-                data.flat = _ctx.appState.flatNumber.getValue().toString();
+                data.flat = _ctx.appState.flatNumber.getValue();
 
                 if (!_missedCallMonitorData.equals(data)){
                     Log.e("SocketServerPm", "not our missed call, data has changed");
@@ -84,7 +84,7 @@ public class SocketServerPm extends BaseDisposable {
 
             SocketServerWrapperService.Data data = new SocketServerWrapperService.Data();
             data.house = _ctx.appState.houseNumber.getValue();
-            data.flat = _ctx.appState.flatNumber.getValue().toString();
+            data.flat = _ctx.appState.flatNumber.getValue();
 
             _ctx.socketServerWrapperService.setData(data);
         }));

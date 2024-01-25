@@ -1,11 +1,14 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.textfield.TextInputEditText;
 import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.framework.BaseFragmentDisposable;
@@ -20,7 +23,6 @@ public class InfoFragment extends BaseFragmentDisposable {
         public ReactiveCommand<Void> loadInfo;
 
         public ReactiveProperty<LoadStatus> takePhotoStatus;
-        public ReactiveProperty<Boolean> isAppLoaded;
     }
 
     private Ctx _ctx;
@@ -63,18 +65,13 @@ public class InfoFragment extends BaseFragmentDisposable {
     }
 
     private void showPhotoLoading(Boolean value) {
-        if (_ctx.isAppLoaded.getValue()){
-            if (!isVisible()){
-                return;
-            }
-        }
-
         Class<? extends Fragment> fragmentClass = InfoImageFragment.class;
         if (value) {
             fragmentClass = LoadingFragment.class;
         }
 
-        getParentFragmentManager().beginTransaction()
+        getChildFragmentManager()
+                .beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.info_fragment_container_view, fragmentClass, null)
                 .commit();

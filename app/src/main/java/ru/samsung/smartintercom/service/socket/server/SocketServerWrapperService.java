@@ -82,7 +82,7 @@ public class SocketServerWrapperService {
         callDataSource.getStatus().collect((status, continuation) -> {
             Log.i("SocketServerWrapperService", String.format("status is: %s", status.toString()));
 
-            if (_data != data) {
+            if (!_data.equals(data)) {
                 Log.i("SocketServerWrapperService", "it's not my current config status, skip");
                 return null;
             }
@@ -114,7 +114,7 @@ public class SocketServerWrapperService {
         callRepository.getIntercomCallStart().collect((unit, continuation) -> {
             Log.i("SocketServerWrapperService", "incoming call");
 
-            if (_data != data) {
+            if (!_data.equals(data)) {
                 Log.i("SocketServerWrapperService", "it's not my current config call, skip");
                 return null;
             }

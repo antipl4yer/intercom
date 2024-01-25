@@ -7,6 +7,7 @@ import ru.samsung.smartintercom.framework.ReactiveProperty;
 import ru.samsung.smartintercom.service.http.server.AppServerService;
 import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.util.LoadStatus;
+import ru.samsung.smartintercom.util.MainThreadTimer;
 
 import java.time.Instant;
 
@@ -22,8 +23,6 @@ public class AppServerPm extends BaseDisposable {
         public ReactiveProperty<LoadStatus> remoteActionStatus;
         public ReactiveProperty<LoadStatus> loadStatus;
         public ReactiveProperty<String> lastErrorDescription;
-
-        public ReactiveProperty<Boolean> isAppLoaded;
     }
 
     private final Ctx _ctx;
@@ -44,7 +43,7 @@ public class AppServerPm extends BaseDisposable {
             tryConnect();
         }));
 
-        deferDispose(_ctx.appState.isSettingsValid.subscribe(isValid -> {
+        deferDispose(_ctx.appState.isSettingsValid.skip(1).subscribe(isValid -> {
             if (!isValid) {
                 Log.e("AppServerPm", "invalid settings");
                 return;
@@ -96,11 +95,6 @@ public class AppServerPm extends BaseDisposable {
     }
 
     private void tryConnect() {
-        if (_ctx.appState.houseNumber.getValue().isEmpty() || _ctx.appState.flatNumber.getValue() == 0) {
-            Log.e("AppServerPm", "house number or flat number are not filled, skip connect");
-            return;
-        }
-
         if (!_ctx.appState.isSettingsValid.getValue()) {
             Log.e("AppServerPm", "invalid settings, skip connect");
             return;
@@ -108,20 +102,15 @@ public class AppServerPm extends BaseDisposable {
 
         AppServerService.DataHeaders dataHeaders = new AppServerService.DataHeaders();
         dataHeaders.house = _ctx.appState.houseNumber.getValue();
-        dataHeaders.flat = _ctx.appState.flatNumber.getValue().toString();
+        dataHeaders.flat = _ctx.appState.flatNumber.getValue();
 
         _ctx.appServerService.setDataHeaders(dataHeaders);
 
-        if (!_ctx.isAppLoaded.getValue()) {
-            Log.e("AppServerPm", "app is not loaded yet, skip connect");
-            return;
-        }
-
         _ctx.loadStatus.setValue(LoadStatus.LOADING);
         _ctx.appServerService.getInfo(info -> {
+            _ctx.lastErrorDescription.setValue("");
             _ctx.appState.intercomModel.setValue(info.model);
             _ctx.loadStatus.setValue(LoadStatus.SUCCESS);
-            _ctx.lastErrorDescription.setValue("");
 
             return null;
         }, errorDescription -> {

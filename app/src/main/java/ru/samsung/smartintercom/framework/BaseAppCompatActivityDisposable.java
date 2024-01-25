@@ -16,9 +16,9 @@ public class BaseAppCompatActivityDisposable extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-
         _disposable.dispose();
         _disposable = null;
+
+        super.onDestroy();
     }
 }

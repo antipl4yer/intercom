@@ -1,4 +1,4 @@
-package ru.samsung.smartintercom.view.adapter;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

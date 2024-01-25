@@ -7,8 +7,8 @@ import ru.samsung.smartintercom.framework.BaseDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
 import ru.samsung.smartintercom.framework.ReactiveProperty;
 import ru.samsung.smartintercom.state.AppState;
+import ru.samsung.smartintercom.ui.activity.*;
 import ru.samsung.smartintercom.util.LoadStatus;
-import ru.samsung.smartintercom.view.*;
 
 public class MainEntity extends BaseDisposable {
     public static class Ctx {
@@ -28,21 +28,14 @@ public class MainEntity extends BaseDisposable {
         public ReactiveProperty<LoadStatus> remoteActionStatus;
         public ReactiveProperty<LoadStatus> loadStatus;
         public ReactiveProperty<String> lastErrorDescription;
-        public ReactiveProperty<Boolean> isAppLoaded;
         public ReactiveCommand<Activity> onActivityResumed;
+        public ReactiveProperty<Boolean> isCurrentSettingsValid;
     }
 
     private final Ctx _ctx;
 
     public MainEntity(Ctx ctx) {
         _ctx = ctx;
-
-        deferDispose(_ctx.onActivityResumed.subscribe(activity -> {
-            if (activity instanceof MainActivity) {
-                _ctx.isAppLoaded.setValue(true);
-                return;
-            }
-        }));
 
         deferDispose(_ctx.onIncomingCall.subscribe(unused -> {
             _ctx.navigateToMenuItem.execute(R.id.button_call);
@@ -66,7 +59,7 @@ public class MainEntity extends BaseDisposable {
                 mainFragmentCtx.remoteActionStatus = _ctx.remoteActionStatus;
                 mainFragmentCtx.loadStatus = _ctx.loadStatus;
                 mainFragmentCtx.lastErrorDescription = _ctx.lastErrorDescription;
-                mainFragmentCtx.isAppLoaded = _ctx.isAppLoaded;
+                mainFragmentCtx.isCurrentSettingsValid = _ctx.isCurrentSettingsValid;
 
                 ((MainFragment) fragment).setCtx(mainFragmentCtx);
                 return;
@@ -83,7 +76,6 @@ public class MainEntity extends BaseDisposable {
                 infoFragmentCtx.appState = _ctx.appState;
                 infoFragmentCtx.loadInfo = _ctx.loadInfo;
                 infoFragmentCtx.takePhotoStatus = _ctx.takePhotoStatus;
-                infoFragmentCtx.isAppLoaded = _ctx.isAppLoaded;
 
                 ((InfoFragment) fragment).setCtx(infoFragmentCtx);
                 return;

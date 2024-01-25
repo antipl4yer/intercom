@@ -1,4 +1,4 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,8 +12,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.framework.BaseFragmentDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
+import ru.samsung.smartintercom.framework.ReactiveProperty;
 import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.util.Converter;
+import ru.samsung.smartintercom.util.FlatNumberValidator;
 import ru.samsung.smartintercom.util.HouseNumberValidator;
 
 public class SettingsFragment extends BaseFragmentDisposable {
@@ -21,6 +23,7 @@ public class SettingsFragment extends BaseFragmentDisposable {
     public static class Ctx {
         public AppState appState;
         public ReactiveCommand<Void> flushAppState;
+        public ReactiveProperty<Boolean> isCurrentSettingsValid;
         public ReactiveCommand<Integer> navigateToMenuItem;
     }
 
@@ -28,6 +31,7 @@ public class SettingsFragment extends BaseFragmentDisposable {
     private TextInputEditText _settingsFlatInput;
     private TextInputEditText _settingsHouseInput;
     private TextView _settingsHouseHint;
+
     private Button _saveButton;
 
     @Override
@@ -54,58 +58,34 @@ public class SettingsFragment extends BaseFragmentDisposable {
         _settingsFlatInput.setText(Converter.convertStringToCharSequence(_ctx.appState.flatNumber.getValue().toString()));
         _settingsHouseInput.setText(Converter.convertStringToCharSequence(_ctx.appState.houseNumber.getValue()));
 
-        _settingsHouseInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateInput();
-            }
-        });
-
-        _settingsFlatInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateInput();
-            }
-        });
+        _settingsHouseInput.addTextChangedListener(HouseNumberValidator.attachValidator(_settingsHouseInput, this::validateInput));
+        _settingsFlatInput.addTextChangedListener(FlatNumberValidator.attachValidator(_settingsFlatInput, this::validateInput));
 
         _saveButton.setOnClickListener(v -> {
             String houseNumber = Converter.convertCharSequenceToString(_settingsHouseInput.getText().toString());
-            Integer flatNumber = Converter.convertCharSequenceToInteger(_settingsFlatInput.getText().toString());
+            String flatNumber = Converter.convertCharSequenceToString(_settingsFlatInput.getText().toString());
 
-            _ctx.navigateToMenuItem.execute(R.id.button_main);
+            //_ctx.navigateToMenuItem.execute(R.id.button_main);
 
             _ctx.appState.flatNumber.setValue(flatNumber);
             _ctx.appState.houseNumber.setValue(houseNumber);
             _ctx.appState.isSettingsValid.setValue(true);
+            _ctx.appState.isFirstStart.setValue(false);
             _ctx.flushAppState.execute(null);
+
+            _saveButton.setEnabled(false);
         });
+
+        validateInput();
     }
 
     private void validateInput() {
+        _ctx.isCurrentSettingsValid.setValue(false);
         _settingsHouseHint.setText("");
 
         String houseNumber = Converter.convertCharSequenceToString(_settingsHouseInput.getText().toString());
         String flatNumber = Converter.convertCharSequenceToString(_settingsFlatInput.getText().toString());
-        if (flatNumber.isEmpty()){
+        if (!FlatNumberValidator.isValid(flatNumber)) {
             _settingsHouseHint.setText(R.string.settings_flat_number_hint);
             _saveButton.setEnabled(false);
             return;
@@ -117,6 +97,12 @@ public class SettingsFragment extends BaseFragmentDisposable {
             return;
         }
 
-        _saveButton.setEnabled(true);
+        _ctx.isCurrentSettingsValid.setValue(true);
+
+        if (houseNumber.equals(_ctx.appState.houseNumber.getValue()) && flatNumber.equals(_ctx.appState.flatNumber.getValue())){
+            _saveButton.setEnabled(false);
+        }else{
+            _saveButton.setEnabled(true);
+        }
     }
 }

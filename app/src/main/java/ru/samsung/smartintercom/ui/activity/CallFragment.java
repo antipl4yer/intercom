@@ -1,5 +1,6 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class CallFragment extends BaseFragmentDisposable {
         public AppState appState;
         public ReactiveCommand<Integer> navigateToMenuItem;
         public ReactiveCommand<Boolean> setRemoteIsOpen;
+        public ReactiveCommand<Void> onIncomingCall;
         public ReactiveCommand<Void> onMissedCall;
         public ReactiveCommand<Void> onAcceptedCall;
         public ReactiveCommand<Void> onDeclinedCall;
@@ -52,11 +54,20 @@ public class CallFragment extends BaseFragmentDisposable {
         TextView missedCallTextView = view.findViewById(R.id.missed_call);
         missedCallTextView.setVisibility(View.GONE);
 
-        ImageView callImage = view.findViewById(R.id.call_image);
-        callImage.setAnimation(AnimationUtils.loadAnimation(this.getContext(), R.anim.shake_call_animation));
-        callImage.setVisibility(View.VISIBLE);
+        Context context = this.getContext();
 
-        Button acceptCallButton = view.findViewById(R.id.accept_call_button);
+        ImageView callImage = view.findViewById(R.id.call_image);
+        callImage.setVisibility(View.VISIBLE);
+        callImage.setAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_call_animation));
+
+        deferDispose(_ctx.onIncomingCall.subscribe(unused -> {
+            callActionContainer.setVisibility(View.VISIBLE);
+            missedCallTextView.setVisibility(View.GONE);
+            callImage.setVisibility(View.VISIBLE);
+            callImage.setAnimation(AnimationUtils.loadAnimation(context, R.anim.shake_call_animation));
+        }));
+
+        Button acceptCallButton = view.findViewById(R.id.button_open);
         acceptCallButton.setOnClickListener(v -> {
             _ctx.appState.lastReceivedCallTime.setValue(Instant.now());
             _ctx.navigateToMenuItem.execute(R.id.button_main);
@@ -65,7 +76,7 @@ public class CallFragment extends BaseFragmentDisposable {
             _ctx.onAcceptedCall.execute(null);
         });
 
-        Button declineCallButton = view.findViewById(R.id.decline_call_button);
+        Button declineCallButton = view.findViewById(R.id.button_close);
         declineCallButton.setOnClickListener(v -> {
             _ctx.appState.lastReceivedCallTime.setValue(Instant.now());
             _ctx.navigateToMenuItem.execute(R.id.button_main);

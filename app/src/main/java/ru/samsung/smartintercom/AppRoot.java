@@ -107,9 +107,6 @@ public class AppRoot extends Application {
         ReactiveProperty<String> lastErrorDescription = ReactiveProperty.create();
         lastErrorDescription.setValue("");
 
-        ReactiveProperty<Boolean> isAppLoaded = ReactiveProperty.create();
-        isAppLoaded.setValue(false);
-
         AppServerService appServerService = new AppServerService(appServerServiceCtx);
 
         AppServerPm.Ctx appServerPmCtx = new AppServerPm.Ctx();
@@ -122,12 +119,13 @@ public class AppRoot extends Application {
         appServerPmCtx.remoteActionStatus = remoteActionStatus;
         appServerPmCtx.loadStatus = loadStatus;
         appServerPmCtx.lastErrorDescription = lastErrorDescription;
-        appServerPmCtx.isAppLoaded = isAppLoaded;
 
         AppServerPm appServerPm = new AppServerPm(appServerPmCtx);
         _disposables.add(appServerPm);
 
         ReactiveCommand<Integer> navigateToMenuItem = ReactiveCommand.create();
+        ReactiveProperty<Boolean> isCurrentSettingsValid = ReactiveProperty.create();
+        isCurrentSettingsValid.setValue(true);
 
         MainEntity.Ctx mainEntityContext = new MainEntity.Ctx();
         mainEntityContext.onActivityStarted = onActivityStarted;
@@ -142,8 +140,8 @@ public class AppRoot extends Application {
         mainEntityContext.remoteActionStatus = remoteActionStatus;
         mainEntityContext.loadStatus = loadStatus;
         mainEntityContext.lastErrorDescription = lastErrorDescription;
-        mainEntityContext.isAppLoaded = isAppLoaded;
         mainEntityContext.onActivityResumed = onActivityResumed;
+        mainEntityContext.isCurrentSettingsValid = isCurrentSettingsValid;
 
         MainEntity mainEntity = new MainEntity(mainEntityContext);
         _disposables.add(mainEntity);
@@ -155,6 +153,7 @@ public class AppRoot extends Application {
         callEntityCtx.navigateToMenuItem = navigateToMenuItem;
         callEntityCtx.onFragmentViewCreated = onFragmentViewCreated;
         callEntityCtx.setRemoteIsOpen = setRemoteIsOpen;
+        callEntityCtx.onIncomingCall = onIncomingCall;
         callEntityCtx.onMissedCall = onMissedCall;
 
         CallEntity callEntity = new CallEntity(callEntityCtx);
@@ -166,6 +165,7 @@ public class AppRoot extends Application {
         settingsEntityContext.flushAppState = flushAppState;
         settingsEntityContext.appState = appState;
         settingsEntityContext.navigateToMenuItem = navigateToMenuItem;
+        settingsEntityContext.isCurrentSettingsValid = isCurrentSettingsValid;
 
         SettingsEntity settingsEntity = new SettingsEntity(settingsEntityContext);
         _disposables.add(settingsEntity);
@@ -173,6 +173,7 @@ public class AppRoot extends Application {
         CallsHistoryEntity.Ctx callsHistoryEntityCtx = new CallsHistoryEntity.Ctx();
         callsHistoryEntityCtx.database = database;
         callsHistoryEntityCtx.onFragmentViewCreated = onFragmentViewCreated;
+        callsHistoryEntityCtx.onMissedCall = onMissedCall;
 
         CallsHistoryEntity callsHistoryEntity = new CallsHistoryEntity(callsHistoryEntityCtx);
         _disposables.add(callsHistoryEntity);

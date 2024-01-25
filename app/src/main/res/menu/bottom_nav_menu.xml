@@ -5,12 +5,12 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/title_main"/>
     <item
-            android:id="@+id/button_history"
+            android:id="@id/button_history"
             android:icon="@drawable/ic_notifications_black_24dp"
             android:title="@string/title_calls_history"/>
 
     <item
-            android:id="@+id/button_settings"
+            android:id="@id/button_settings"
             android:icon="@drawable/ic_dashboard_black_24dp"
             android:title="@string/title_settings"/>
     <item

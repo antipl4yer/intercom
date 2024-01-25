@@ -3,7 +3,7 @@
              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".view.SettingsFragment">
+             tools:context=".ui.activity.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +14,7 @@
                 android:text="@string/settings_button_save_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/button_save"
+                android:id="@id/button_save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,11 +29,12 @@
                 android:hint="@string/settings_input_house_hint">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_house"
+                    android:id="@id/input_house"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:height="48dp"
                     android:text=""
+                    android:maxLength="4"
             />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -43,10 +44,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:hint="@string/settings_input_flat_hint"
-                app:layout_constraintTop_toBottomOf="@+id/input_house_layout" android:id="@+id/textInputLayout">
+                app:layout_constraintTop_toBottomOf="@+id/input_house_layout"
+                android:id="@+id/textInputLayout">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_flat"
+                    android:id="@id/input_flat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:height="48dp"

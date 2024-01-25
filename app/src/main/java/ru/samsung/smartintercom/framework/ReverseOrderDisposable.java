@@ -15,8 +15,22 @@ public class ReverseOrderDisposable implements Disposable {
         _disposables = new ArrayList<Disposable>();
     }
 
-    public void add(Disposable disposable){
+    public void add(Disposable disposable) {
         _disposables.add(disposable);
+    }
+
+    public void disposeDisposables() {
+        ListIterator<Disposable> disposableListIterator = _disposables.listIterator(_disposables.size());
+        while (disposableListIterator.hasPrevious()) {
+            Disposable disposableCandidate = disposableListIterator.previous();
+            if (disposableCandidate.isDisposed()) {
+                continue;
+            }
+
+            disposableCandidate.dispose();
+        }
+
+        _disposables.clear();
     }
 
     @Override
@@ -25,17 +39,8 @@ public class ReverseOrderDisposable implements Disposable {
             return;
         }
 
-        ListIterator<Disposable> disposableListIterator = _disposables.listIterator(_disposables.size());
-        while(disposableListIterator.hasPrevious()) {
-            Disposable disposableCandidate = disposableListIterator.previous();
-            if (disposableCandidate.isDisposed()){
-                continue;
-            }
+        disposeDisposables();
 
-            disposableCandidate.dispose();
-        }
-
-        _disposables.clear();
         _isDisposed = true;
     }
 

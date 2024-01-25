@@ -7,7 +7,7 @@ import ru.samsung.smartintercom.framework.BaseDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
 import ru.samsung.smartintercom.pm.CallPm;
 import ru.samsung.smartintercom.state.AppState;
-import ru.samsung.smartintercom.view.*;
+import ru.samsung.smartintercom.ui.activity.CallFragment;
 
 public class CallEntity extends BaseDisposable {
     public static class Ctx {
@@ -17,6 +17,7 @@ public class CallEntity extends BaseDisposable {
         public ReactiveCommand<Fragment> onFragmentViewCreated;
         public ReactiveCommand<Integer> navigateToMenuItem;
         public ReactiveCommand<Boolean> setRemoteIsOpen;
+        public ReactiveCommand<Void> onIncomingCall;
         public ReactiveCommand<Void> onMissedCall;
     }
 
@@ -37,6 +38,7 @@ public class CallEntity extends BaseDisposable {
                 callFragmentCtx.onMissedCall = _ctx.onMissedCall;
                 callFragmentCtx.onAcceptedCall = onAcceptedCall;
                 callFragmentCtx.onDeclinedCall = onDeclinedCall;
+                callFragmentCtx.onIncomingCall = _ctx.onIncomingCall;
 
                 ((CallFragment) fragment).setCtx(callFragmentCtx);
                 return;

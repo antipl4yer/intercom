@@ -3,10 +3,10 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".view.CallsHistoryFragment">
+             tools:context=".ui.activity.CallsHistoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+            android:id="@id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

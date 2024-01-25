@@ -7,31 +7,31 @@
 
     <fragment
             android:id="@+id/button_main"
-            android:name="ru.samsung.smartintercom.view.MainFragment"
+            android:name="ru.samsung.smartintercom.ui.activity.MainFragment"
             android:label="@string/title_main"
             tools:layout="@layout/fragment_main"/>
 
     <fragment
-            android:id="@+id/button_settings"
-            android:name="ru.samsung.smartintercom.view.SettingsFragment"
+            android:id="@id/button_settings"
+            android:name="ru.samsung.smartintercom.ui.activity.SettingsFragment"
             android:label="@string/title_settings"
             tools:layout="@layout/fragment_settings"/>
 
     <fragment
             android:id="@+id/button_call"
-            android:name="ru.samsung.smartintercom.view.CallFragment"
+            android:name="ru.samsung.smartintercom.ui.activity.CallFragment"
             android:label="@string/title_call"
             tools:layout="@layout/fragment_call"/>
 
     <fragment
-            android:id="@+id/button_history"
-            android:name="ru.samsung.smartintercom.view.CallsHistoryFragment"
+            android:id="@id/button_history"
+            android:name="ru.samsung.smartintercom.ui.activity.CallsHistoryFragment"
             android:label="@string/title_calls_history"
             tools:layout="@layout/fragment_info"/>
 
     <fragment
             android:id="@+id/button_loading"
-            android:name="ru.samsung.smartintercom.view.LoadingFragment"
+            android:name="ru.samsung.smartintercom.ui.activity.LoadingFragment"
             android:label=""
             tools:layout="@layout/fragment_info"/>
 

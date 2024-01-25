@@ -1,4 +1,4 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +25,7 @@ public class MainActivity extends BaseAppCompatActivityDisposable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ru.samsung.smartintercom.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -43,7 +43,7 @@ public class MainActivity extends BaseAppCompatActivityDisposable {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    public void setCtx(Ctx ctx){
+    public void setCtx(Ctx ctx) {
         _ctx = ctx;
 
         deferDispose(_ctx.navigateToMenuItem.subscribe(itemId -> {

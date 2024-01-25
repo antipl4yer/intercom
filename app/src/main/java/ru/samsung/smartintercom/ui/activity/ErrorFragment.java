@@ -1,4 +1,4 @@
-package ru.samsung.smartintercom.view;
+package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
