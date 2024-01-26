@@ -7,18 +7,18 @@ import java.time.Instant;
 
 public class AppState {
 
-    public ReactiveProperty<String> intercomModel;
-    public ReactiveProperty<String> houseNumber;
-    public ReactiveProperty<String> flatNumber;
-    public ReactiveProperty<Bitmap> lastPhoto;
-    public ReactiveProperty<Instant> lastPhotoReceivedTime;
-    public ReactiveProperty<Instant> takePhotoTime;
-    public ReactiveProperty<Instant> lastAppServerConnectTime;
-    public ReactiveProperty<Instant> lastIncomingCallTime;
-    public ReactiveProperty<Instant> lastReceivedCallTime;
-    public ReactiveProperty<Boolean> isSettingsValid;
-    public ReactiveProperty<Boolean> isIncomingChannelEstablished;
-    public ReactiveProperty<Boolean> isFirstStart;
+    public final ReactiveProperty<String> intercomModel;
+    public final ReactiveProperty<String> houseNumber;
+    public final ReactiveProperty<String> flatNumber;
+    public final ReactiveProperty<Bitmap> lastPhoto;
+    public final ReactiveProperty<Instant> lastPhotoReceivedTime;
+    public final ReactiveProperty<Instant> takePhotoTime;
+    public final ReactiveProperty<Instant> lastAppServerConnectTime;
+    public final ReactiveProperty<Instant> lastIncomingCallTime;
+    public final ReactiveProperty<Instant> lastReceivedCallTime;
+    public final ReactiveProperty<Boolean> isSettingsValid;
+    public final ReactiveProperty<Boolean> isIncomingChannelEstablished;
+    public final ReactiveProperty<Boolean> isFirstRun;
 
     public AppState(){
 
@@ -48,8 +48,8 @@ public class AppState {
         isSettingsValid = ReactiveProperty.create();
         isSettingsValid.setValue(false);
 
-        isFirstStart = ReactiveProperty.create();
-        isFirstStart.setValue(true);
+        isFirstRun = ReactiveProperty.create();
+        isFirstRun.setValue(true);
 
         isIncomingChannelEstablished = ReactiveProperty.create();
         isIncomingChannelEstablished.setValue(false);

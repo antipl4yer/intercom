@@ -6,13 +6,12 @@ import android.text.TextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class FlatNumberValidator {
-    private static final String template = "^([0-9]{0,6})$";
-
     public static Boolean isValid(String value) {
         if (value.isEmpty()){
             return false;
         }
-        return value.matches(template);
+
+        return filter(value).equals(value);
     }
 
     public static TextWatcher attachValidator(TextInputEditText inputEditText, Runnable onTextChangedCallback) {
@@ -23,15 +22,9 @@ public class FlatNumberValidator {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                StringBuilder filtered = new StringBuilder();
-                for (int i = 0; i < s.length() && filtered.length() < 6; i++) {
-                    char c = s.charAt(i);
-                    if (Character.isDigit(c)) {
-                        filtered.append(c);
-                    }
-                }
+                String filtered = filter(s.toString());
 
-                if (!s.toString().equals(filtered.toString())) {
+                if (!s.toString().equals(filtered)) {
                     inputEditText.setText(filtered);
                     inputEditText.setSelection(filtered.length());
                 }
@@ -42,5 +35,17 @@ public class FlatNumberValidator {
                 onTextChangedCallback.run();
             }
         };
+    }
+
+    private static String filter(String value){
+        StringBuilder filtered = new StringBuilder();
+        for (int i = 0; i < value.length() && filtered.length() < 6; i++) {
+            char c = value.charAt(i);
+            if (Character.isDigit(c)) {
+                filtered.append(c);
+            }
+        }
+
+        return filtered.toString();
     }
 }

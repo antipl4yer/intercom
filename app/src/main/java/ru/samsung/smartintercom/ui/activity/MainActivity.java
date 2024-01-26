@@ -11,11 +11,13 @@ import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.databinding.ActivityMainBinding;
 import ru.samsung.smartintercom.framework.BaseAppCompatActivityDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
+import ru.samsung.smartintercom.service.notification.SystemNotificationService;
 
 import java.util.Objects;
 
 public class MainActivity extends BaseAppCompatActivityDisposable {
     public static class Ctx {
+        public SystemNotificationService systemNotificationService;
         public ReactiveCommand<Integer> navigateToMenuItem;
     }
 
@@ -45,6 +47,8 @@ public class MainActivity extends BaseAppCompatActivityDisposable {
 
     public void setCtx(Ctx ctx) {
         _ctx = ctx;
+
+        _ctx.systemNotificationService.requestPermissions(this);
 
         deferDispose(_ctx.navigateToMenuItem.subscribe(itemId -> {
             BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);

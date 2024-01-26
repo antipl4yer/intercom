@@ -1,8 +1,6 @@
 package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +68,7 @@ public class SettingsFragment extends BaseFragmentDisposable {
             _ctx.appState.flatNumber.setValue(flatNumber);
             _ctx.appState.houseNumber.setValue(houseNumber);
             _ctx.appState.isSettingsValid.setValue(true);
-            _ctx.appState.isFirstStart.setValue(false);
+            _ctx.appState.isFirstRun.setValue(false);
             _ctx.flushAppState.execute(null);
 
             _saveButton.setEnabled(false);

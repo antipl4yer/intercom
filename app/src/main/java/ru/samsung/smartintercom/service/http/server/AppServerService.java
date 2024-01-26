@@ -8,6 +8,7 @@ import com.android.volley.*;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import ru.samsung.smartintercom.core.CoreConstants;
 import ru.samsung.smartintercom.framework.serialization.Json;
 import ru.samsung.smartintercom.service.http.server.request.CallRequest;
 import ru.samsung.smartintercom.service.http.server.response.InfoResponse;
@@ -34,6 +35,8 @@ public class AppServerService {
     public static class Ctx {
         public Context appContext;
         public String endpoint;
+        public String houseHeaderName;
+        public String flatHeaderName;
     }
 
     private final Ctx _ctx;
@@ -179,8 +182,8 @@ public class AppServerService {
 
     private Map<String, String> getDataHeaders() {
         Map<String, String> headersMap = new HashMap<String, String>();
-        headersMap.put("house", _dataHeaders.house);
-        headersMap.put("flat", _dataHeaders.flat);
+        headersMap.put(_ctx.houseHeaderName, _dataHeaders.house);
+        headersMap.put(_ctx.flatHeaderName, _dataHeaders.flat);
         return headersMap;
     }
 

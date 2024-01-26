@@ -1,4 +1,7 @@
 <resources>
+    <string name="notification_channel_name">smart_intercom_channel</string>
+    <string name="notification_channel_description">Уведомления для приложения умный домофон</string>
+
     <string name="app_name">Intercom</string>
 
     <string name="title_main">Главная</string>
@@ -13,7 +16,18 @@
     <string name="button_take_photo">Получить фото</string>
     <string name="something_went_wrong">Что-то пошло не так</string>
     <string name="main_about">
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla.
+        Приложение служит для дистанционной работы с домофоном.\n
+        Для работы вам необходимо настроить подключение к домофону.\n
+        Вы можете принимать/отклонять вызовы и просмотривать фото,
+        а также видеть историю действий.\n
+        \n
+        Нажмите на кнопку "Перейти к настройкам" и введите номер вашего дома и квартиры.\n
+        После чего сохраните настройки нажав на кнопку "Сохранить".\n
+        Вернитесь на главный экран либо экранной кнопкой "Back" либо через нижнюю панель навигации.\n
+        При успешном подключении вы увидите информацию о домофоне и сможете им дистанционно управлять.\n
+        \n\n
+        Приятной работы!\n
+        \n\n
     </string>
     <string name="intercom_model">Модель домофона</string>
     <string name="empty_intercom_model">Модель домофона отсутствует</string>
@@ -29,6 +43,8 @@
     <string name="http_error">Ошибка в ответе сервера</string>
     <string name="network_error">Сбой сети</string>
     <string name="last_photo_received_time">Последний раз фото получено: %s</string>
+    <string name="missed_call_notification_title">Пропущенный вызов</string>
+    <string name="missed_call_notification_text">Вы пропустили вызов</string>
     <string name="missed_call_text">Пропущенный вызов</string>
     <string name="accept_call_text">Открыть ✓</string>
     <string name="decline_call_text">Сбросить ✖</string>

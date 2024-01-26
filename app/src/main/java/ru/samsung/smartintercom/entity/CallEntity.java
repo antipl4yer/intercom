@@ -6,6 +6,7 @@ import ru.samsung.smartintercom.db.IntercomDatabase;
 import ru.samsung.smartintercom.framework.BaseDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
 import ru.samsung.smartintercom.pm.CallPm;
+import ru.samsung.smartintercom.service.notification.SystemNotificationService;
 import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.ui.activity.CallFragment;
 
@@ -14,6 +15,8 @@ public class CallEntity extends BaseDisposable {
         public Context appContext;
         public AppState appState;
         public IntercomDatabase database;
+        public SystemNotificationService systemNotificationService;
+
         public ReactiveCommand<Fragment> onFragmentViewCreated;
         public ReactiveCommand<Integer> navigateToMenuItem;
         public ReactiveCommand<Boolean> setRemoteIsOpen;
@@ -51,6 +54,7 @@ public class CallEntity extends BaseDisposable {
         callPmCtx.onAcceptedCall = onAcceptedCall;
         callPmCtx.onMissedCall = _ctx.onMissedCall;
         callPmCtx.appContext = _ctx.appContext;
+        callPmCtx.systemNotificationService = _ctx.systemNotificationService;
 
         CallPm callPm = new CallPm(callPmCtx);
 

@@ -6,6 +6,7 @@ import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.framework.BaseDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
 import ru.samsung.smartintercom.framework.ReactiveProperty;
+import ru.samsung.smartintercom.service.notification.SystemNotificationService;
 import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.ui.activity.*;
 import ru.samsung.smartintercom.util.LoadStatus;
@@ -14,6 +15,7 @@ public class MainEntity extends BaseDisposable {
     public static class Ctx {
         public AppState appState;
 
+        public SystemNotificationService systemNotificationService;
         public ReactiveCommand<Integer> navigateToMenuItem;
 
         public ReactiveCommand<Activity> onActivityStarted;
@@ -45,6 +47,7 @@ public class MainEntity extends BaseDisposable {
             if (activity instanceof MainActivity) {
                 MainActivity.Ctx mainActivityCtx = new MainActivity.Ctx();
                 mainActivityCtx.navigateToMenuItem = _ctx.navigateToMenuItem;
+                mainActivityCtx.systemNotificationService = _ctx.systemNotificationService;
 
                 ((MainActivity) activity).setCtx(mainActivityCtx);
                 return;

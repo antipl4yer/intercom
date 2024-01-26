@@ -1,7 +1,6 @@
 package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +61,7 @@ public class MainFragment extends BaseFragmentDisposable {
             return;
         }
  
-        if (_ctx.appState.isFirstStart.getValue()) {
+        if (_ctx.appState.isFirstRun.getValue()) {
             setFragment(FirstRunFragment.class);
             return;
         }

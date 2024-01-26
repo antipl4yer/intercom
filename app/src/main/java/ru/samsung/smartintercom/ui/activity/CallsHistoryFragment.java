@@ -13,6 +13,7 @@ import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.db.CallHistory;
 import ru.samsung.smartintercom.framework.BaseFragmentDisposable;
 import ru.samsung.smartintercom.framework.ReactiveCommand;
+import ru.samsung.smartintercom.ui.activity.adapter.HistoryListAdapter;
 
 import java.util.List;
 

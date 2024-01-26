@@ -18,6 +18,7 @@ import ru.samsung.smartintercom.pm.AppServerPm;
 import ru.samsung.smartintercom.pm.AppStatePersistentPm;
 import ru.samsung.smartintercom.pm.SocketServerPm;
 import ru.samsung.smartintercom.service.http.server.AppServerService;
+import ru.samsung.smartintercom.service.notification.SystemNotificationService;
 import ru.samsung.smartintercom.service.socket.server.SocketServerWrapperService;
 import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.util.LoadStatus;
@@ -27,6 +28,8 @@ import ru.samsung.smartintercom.core.CoreConstants;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppRoot extends Application {
     private CompositeDisposable _disposables;
@@ -41,6 +44,8 @@ public class AppRoot extends Application {
         Context appContext = this.getApplicationContext();
 
         _disposables = new CompositeDisposable();
+
+        SystemNotificationService systemNotificationService = new SystemNotificationService(appContext);
 
         Json.setup();
 
@@ -87,10 +92,6 @@ public class AppRoot extends Application {
         SocketServerPm socketServerPm = new SocketServerPm(socketServerPmCtx);
         _disposables.add(socketServerPm);
 
-        AppServerService.Ctx appServerServiceCtx = new AppServerService.Ctx();
-        appServerServiceCtx.appContext = appContext;
-        appServerServiceCtx.endpoint = CoreConstants.HOST;
-
         ReactiveCommand<Void> takeRemotePhoto = ReactiveCommand.create();
         ReactiveCommand<Boolean> setRemoteIsOpen = ReactiveCommand.create();
         ReactiveCommand<Void> loadInfo = ReactiveCommand.create();
@@ -106,6 +107,12 @@ public class AppRoot extends Application {
 
         ReactiveProperty<String> lastErrorDescription = ReactiveProperty.create();
         lastErrorDescription.setValue("");
+
+        AppServerService.Ctx appServerServiceCtx = new AppServerService.Ctx();
+        appServerServiceCtx.appContext = appContext;
+        appServerServiceCtx.endpoint = CoreConstants.HOST;
+        appServerServiceCtx.flatHeaderName = CoreConstants.HEADER_FLAT;
+        appServerServiceCtx.houseHeaderName = CoreConstants.HEADER_HOUSE;
 
         AppServerService appServerService = new AppServerService(appServerServiceCtx);
 
@@ -142,6 +149,7 @@ public class AppRoot extends Application {
         mainEntityContext.lastErrorDescription = lastErrorDescription;
         mainEntityContext.onActivityResumed = onActivityResumed;
         mainEntityContext.isCurrentSettingsValid = isCurrentSettingsValid;
+        mainEntityContext.systemNotificationService = systemNotificationService;
 
         MainEntity mainEntity = new MainEntity(mainEntityContext);
         _disposables.add(mainEntity);
@@ -155,6 +163,7 @@ public class AppRoot extends Application {
         callEntityCtx.setRemoteIsOpen = setRemoteIsOpen;
         callEntityCtx.onIncomingCall = onIncomingCall;
         callEntityCtx.onMissedCall = onMissedCall;
+        callEntityCtx.systemNotificationService = systemNotificationService;
 
         CallEntity callEntity = new CallEntity(callEntityCtx);
         _disposables.add(callEntity);
