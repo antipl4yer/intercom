@@ -331,54 +331,54 @@ private static void registerConverters() {
 
 Если версия **Android >= Tiramisu**, то покажется нативное окно с разрешением отправки локальных нотификаций.
 
-![Enter image alt description](Images/szI_Image_1.jpeg)
+![Enter image alt description](images/szI_Image_1.jpeg?raw=true)
 
-![Enter image alt description](Images/iLP_Image_2.jpeg)
+![Enter image alt description](images/iLP_Image_2.jpeg?raw=true)
 
 Далее необходимо нажать кнопку “**Перейти к настройкам**”.
 
-![Enter image alt description](Images/ZPL_Image_3.jpeg)
+![Enter image alt description](images/ZPL_Image_3.jpeg?raw=true)
 
 Приложение автоматически валидирует введенные данные о доме и квартире и там, где это возможно ограничивает ввод. Например в поле ввода дома можно ввести значение: “32/”, т.к. можно продолжить ввод, например дописав “a”, тогда значение будет валидно “32/a”.
 
 Для каждого поля существует подсказка, которая появляется при неверном вводе. Если введенные данные некорректны, то кнопка “**Сохранить**” будет недоступна.
 
-![Enter image alt description](Images/4mF_Image_4.jpeg)
+![Enter image alt description](images/4mF_Image_4.jpeg?raw=true)
 
-![Enter image alt description](Images/ZN4_Image_5.jpeg)
+![Enter image alt description](images/ZN4_Image_5.jpeg?raw=true)
 
 После сохранения настроек, введенные данные будут сохранены в состоянии приложения и после перезапуска приложения эти настройки будут восстановлены. Далее пользователь должен вернуться на главный экран нажав системную кнопку “**Back**”, либо через навигационную панель, кнопка “**Главная**”. Если данные введены корректно, то будет выполнено подключение к серверу и получена информация о домофоне.
 
-![Enter image alt description](Images/cty_Image_6.jpeg)
+![Enter image alt description](images/cty_Image_6.jpeg?raw=true)
 
 Далее пользователь может получить изображение с домофона, нажав на кнопку “**Получить фото**”. При повторном нажатии кнопки будет получено новое изображение.
 
-![Enter image alt description](Images/xXR_Image_7.jpeg)
+![Enter image alt description](images/xXR_Image_7.jpeg?raw=true)
 
 Каждая операция: получения информации о домофоне или загрузки изображения сопровождается состоянием загрузки, при ожидании пользователь увидит эти состояния, в зависимости от того, какую операцию совершил пользователь.
 
-![Enter image alt description](Images/R1b_Image_8.jpeg)
+![Enter image alt description](images/R1b_Image_8.jpeg?raw=true)
 
-![Enter image alt description](Images/nYR_Image_9.jpeg)
+![Enter image alt description](images/nYR_Image_9.jpeg?raw=true)
 
 
 В техническом задании описана ситуация, когда на главном экране должна вывестись ошибка о некорректных настройках домофона. Она может возникнуть, когда пользователь сохранил корректные настройки, потом вернулся в настройки и например ввел: “32/”, и вернулся обратно на главный экран, в таком случае приложение выдаст ошибку.
 
-![Enter image alt description](Images/zgY_Image_10.jpeg)
+![Enter image alt description](images/zgY_Image_10.jpeg?raw=true)
 
 Также при возникновении других ошибок: отсутствие сети **Интернет**, ошибка подключения и т.д., будет также выведена информация на главный экран.
 
-![Enter image alt description](Images/sDV_Image_11.jpeg)
+![Enter image alt description](images/sDV_Image_11.jpeg?raw=true)
 
-![Enter image alt description](Images/JhN_Image_12.jpeg)
+![Enter image alt description](images/JhN_Image_12.jpeg?raw=true)
 
 Если при получении изображения с домофона возникает ошибка, то ошибка выводится в блок с изображением.
 
-![Enter image alt description](Images/c2d_Image_13.jpeg)
+![Enter image alt description](images/c2d_Image_13.jpeg?raw=true)
 
 Если поступает входящий звонок, то показывается экран с входящим звонком.
 
-![Enter image alt description](Images/uJh_Image_14.jpeg)
+![Enter image alt description](images/uJh_Image_14.jpeg?raw=true)
 
 Далее есть несколько вариантов.
 
@@ -390,22 +390,22 @@ private static void registerConverters() {
 
 История сохраняется на персистентное хранилища мобильного устройства и будет доступна при перезаходе в приложение.
 
-![Enter image alt description](Images/kBL_Image_15.jpeg)
+![Enter image alt description](images/kBL_Image_15.jpeg?raw=true)
 
 Входящий звонок сброшен.
 
 В этом случае пользователь, при переходе в историю увидит, что звонок был сброшен.
 
-![Enter image alt description](Images/yEA_Image_16.jpeg)
+![Enter image alt description](images/yEA_Image_16.jpeg?raw=true)
 
 Входящий звонок был проигнорирован, пользователь не совершил никаких действий в течение 15 сек.
 
 В таком случае при будет выведено локальное пуш уведомление с пропущенным вызовом и информация о пропущенном вызове попадет в историю со статусом “пропущен”.
 
-![Enter image alt description](Images/cDg_Image_17.jpeg)
+![Enter image alt description](images/cDg_Image_17.jpeg?raw=true)
 
-![Enter image alt description](Images/0E4_Image_18.jpeg)
+![Enter image alt description](images/0E4_Image_18.jpeg?raw=true)
 
 Если пользователь при входящим вызове перешел на другой экран, например в историю, то по истечении 15 сек в истории появится пропущенный вызов.
 
-![Enter image alt description](Images/JJr_Image_19.jpeg)
+![Enter image alt description](images/JJr_Image_19.jpeg?raw=true)
