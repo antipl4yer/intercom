@@ -331,7 +331,7 @@ private static void registerConverters() {
 
 Если версия **Android >= Tiramisu**, то покажется нативное окно с разрешением отправки локальных нотификаций.
 
-![Enter image alt description](images/szI_Image_1.jpeg?raw=true)
+![Enter image alt description](images/szI_Image_1.jpeg?raw=true){: width="450px"}
 
 ![Enter image alt description](images/iLP_Image_2.jpeg?raw=true)
 
