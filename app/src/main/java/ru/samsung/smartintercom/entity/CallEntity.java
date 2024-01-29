@@ -16,10 +16,9 @@ public class CallEntity extends BaseDisposable {
         public AppState appState;
         public IntercomDatabase database;
         public SystemNotificationService systemNotificationService;
-
-        public ReactiveCommand<Fragment> onFragmentViewCreated;
         public ReactiveCommand<Integer> navigateToMenuItem;
         public ReactiveCommand<Boolean> setRemoteIsOpen;
+        public ReactiveCommand<Fragment> onFragmentViewCreated;
         public ReactiveCommand<Void> onIncomingCall;
         public ReactiveCommand<Void> onMissedCall;
     }
@@ -50,11 +49,11 @@ public class CallEntity extends BaseDisposable {
 
         CallPm.Ctx callPmCtx = new CallPm.Ctx();
         callPmCtx.database = _ctx.database;
+        callPmCtx.appContext = _ctx.appContext;
+        callPmCtx.systemNotificationService = _ctx.systemNotificationService;
         callPmCtx.onDeclinedCall = onDeclinedCall;
         callPmCtx.onAcceptedCall = onAcceptedCall;
         callPmCtx.onMissedCall = _ctx.onMissedCall;
-        callPmCtx.appContext = _ctx.appContext;
-        callPmCtx.systemNotificationService = _ctx.systemNotificationService;
 
         CallPm callPm = new CallPm(callPmCtx);
 

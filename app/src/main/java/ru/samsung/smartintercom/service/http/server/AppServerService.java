@@ -8,7 +8,6 @@ import com.android.volley.*;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import ru.samsung.smartintercom.core.CoreConstants;
 import ru.samsung.smartintercom.framework.serialization.Json;
 import ru.samsung.smartintercom.service.http.server.request.CallRequest;
 import ru.samsung.smartintercom.service.http.server.response.InfoResponse;

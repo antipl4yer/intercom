@@ -1,14 +1,11 @@
 package ru.samsung.smartintercom.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.textfield.TextInputEditText;
 import ru.samsung.smartintercom.R;
 import ru.samsung.smartintercom.framework.BaseFragmentDisposable;
@@ -20,8 +17,7 @@ import ru.samsung.smartintercom.util.LoadStatus;
 public class InfoFragment extends BaseFragmentDisposable {
     public static class Ctx {
         public AppState appState;
-        public ReactiveCommand<Void> loadInfo;
-
+        public ReactiveCommand<Void> reconnectAppServer;
         public ReactiveProperty<LoadStatus> takePhotoStatus;
     }
 
@@ -45,7 +41,7 @@ public class InfoFragment extends BaseFragmentDisposable {
 
         Button loadInfoButton = view.findViewById(R.id.button_retry);
         loadInfoButton.setOnClickListener(v -> {
-            _ctx.loadInfo.execute(null);
+            _ctx.reconnectAppServer.execute(null);
         });
 
         deferDispose(_ctx.appState.intercomModel.subscribe(value -> {

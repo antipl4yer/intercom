@@ -9,19 +9,19 @@ import ru.samsung.smartintercom.framework.ReactiveProperty;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Type;
+import java.time.Instant;
 
-public class ReactivePropertyBitmapConverter {
+public class BitmapConverter {
     public static void registerConverter(GsonBuilder builder) {
-        Type typeOfContainer = new TypeToken<ReactiveProperty<Bitmap>>() {
+        Type typeOfContainer = new TypeToken<Bitmap>() {
         }.getType();
 
-        JsonSerializer<ReactiveProperty<Bitmap>> serializer = new JsonSerializer<ReactiveProperty<Bitmap>>() {
+        JsonSerializer<Bitmap> serializer = new JsonSerializer<Bitmap>() {
             @Override
-            public JsonElement serialize(ReactiveProperty<Bitmap> src, Type typeOfSrc, JsonSerializationContext context) {
-                Bitmap bitmap = src.getValue();
+            public JsonElement serialize(Bitmap src, Type typeOfSrc, JsonSerializationContext context) {
                 String serializedString = "";
-                if (bitmap != null) {
-                    serializedString = bitmapToString(bitmap);
+                if (src != null) {
+                    serializedString = bitmapToString(src);
                 }
 
                 return context.serialize(serializedString);
@@ -29,16 +29,11 @@ public class ReactivePropertyBitmapConverter {
         };
         builder.registerTypeAdapter(typeOfContainer, serializer);
 
-        JsonDeserializer<ReactiveProperty<Bitmap>> deserializer = new JsonDeserializer<ReactiveProperty<Bitmap>>() {
+        JsonDeserializer<Bitmap> deserializer = new JsonDeserializer<Bitmap>() {
             @Override
-            public ReactiveProperty<Bitmap> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                ReactiveProperty<Bitmap> newReactiveProperty = ReactiveProperty.create();
-
+            public Bitmap deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
                 String deserializedString = context.deserialize(json, String.class);
-
-                newReactiveProperty.setValue(stringToBitmap(deserializedString));
-
-                return newReactiveProperty;
+                return stringToBitmap(deserializedString);
             }
         };
         builder.registerTypeAdapter(typeOfContainer, deserializer);

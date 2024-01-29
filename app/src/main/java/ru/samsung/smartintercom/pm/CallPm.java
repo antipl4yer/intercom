@@ -11,17 +11,14 @@ import ru.samsung.smartintercom.util.Converter;
 
 import java.time.Instant;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
-
 public class CallPm extends BaseDisposable {
     public static class Ctx {
         public Context appContext;
+        public IntercomDatabase database;
+        public SystemNotificationService systemNotificationService;
         public ReactiveCommand<Void> onMissedCall;
         public ReactiveCommand<Void> onAcceptedCall;
         public ReactiveCommand<Void> onDeclinedCall;
-        public IntercomDatabase database;
-        public SystemNotificationService systemNotificationService;
     }
 
     private final Ctx _ctx;

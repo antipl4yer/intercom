@@ -16,6 +16,7 @@ public class SocketServerPm extends BaseDisposable {
     public static class Ctx {
         public AppState appState;
         public SocketServerWrapperService socketServerWrapperService;
+        public ReactiveCommand<Void> reconnectSocketServer;
         public ReactiveCommand<Void> onIncomingCall;
         public ReactiveCommand<Void> onMissedCall;
     }
@@ -77,17 +78,11 @@ public class SocketServerPm extends BaseDisposable {
             return null;
         });
 
-        deferDispose(_ctx.appState.isSettingsValid.subscribe(isValid -> {
-            if (!isValid) {
-                return;
-            }
-
-            SocketServerWrapperService.Data data = new SocketServerWrapperService.Data();
-            data.house = _ctx.appState.houseNumber.getValue();
-            data.flat = _ctx.appState.flatNumber.getValue();
-
-            _ctx.socketServerWrapperService.setData(data);
+        deferDispose(_ctx.reconnectSocketServer.subscribe(isValid -> {
+            tryConnect();
         }));
+
+        tryConnect();
     }
 
     @Override
@@ -95,6 +90,18 @@ public class SocketServerPm extends BaseDisposable {
         disposeMissedCallTimers();
 
         super.dispose();
+    }
+
+    private void tryConnect(){
+        if (!_ctx.appState.isSettingsValid.getValue()) {
+            return;
+        }
+
+        SocketServerWrapperService.Data data = new SocketServerWrapperService.Data();
+        data.house = _ctx.appState.houseNumber.getValue();
+        data.flat = _ctx.appState.flatNumber.getValue();
+
+        _ctx.socketServerWrapperService.setData(data);
     }
 
     private void disposeMissedCallTimers(){

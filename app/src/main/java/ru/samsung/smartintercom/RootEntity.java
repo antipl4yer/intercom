@@ -24,14 +24,13 @@ import ru.samsung.smartintercom.state.AppState;
 import ru.samsung.smartintercom.util.LoadStatus;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import ru.samsung.smartintercom.core.CoreConstants;
+import ru.samsung.smartintercom.util.MainThreadTimer;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
 
-public class AppRoot extends Application {
+public class RootEntity extends Application {
     private CompositeDisposable _disposables;
     private File _appStateFile;
 
@@ -80,6 +79,7 @@ public class AppRoot extends Application {
 
         ReactiveCommand<Void> onIncomingCall = ReactiveCommand.create();
         ReactiveCommand<Void> onMissedCall = ReactiveCommand.create();
+        ReactiveCommand<Void> reconnectSocketServer = ReactiveCommand.create();
 
         SocketServerWrapperService socketServerWrapperService = new SocketServerWrapperService();
 
@@ -87,6 +87,7 @@ public class AppRoot extends Application {
         socketServerPmCtx.onIncomingCall = onIncomingCall;
         socketServerPmCtx.appState = appState;
         socketServerPmCtx.socketServerWrapperService = socketServerWrapperService;
+        socketServerPmCtx.reconnectSocketServer = reconnectSocketServer;
         socketServerPmCtx.onMissedCall = onMissedCall;
 
         SocketServerPm socketServerPm = new SocketServerPm(socketServerPmCtx);
@@ -94,7 +95,7 @@ public class AppRoot extends Application {
 
         ReactiveCommand<Void> takeRemotePhoto = ReactiveCommand.create();
         ReactiveCommand<Boolean> setRemoteIsOpen = ReactiveCommand.create();
-        ReactiveCommand<Void> loadInfo = ReactiveCommand.create();
+        ReactiveCommand<Void> reconnectAppServer = ReactiveCommand.create();
 
         ReactiveProperty<LoadStatus> takePhotoStatus = ReactiveProperty.create();
         takePhotoStatus.setValue(LoadStatus.NEVER);
@@ -121,7 +122,7 @@ public class AppRoot extends Application {
         appServerPmCtx.appServerService = appServerService;
         appServerPmCtx.takeRemotePhoto = takeRemotePhoto;
         appServerPmCtx.setRemoteIsOpen = setRemoteIsOpen;
-        appServerPmCtx.loadInfo = loadInfo;
+        appServerPmCtx.reconnectAppServer = reconnectAppServer;
         appServerPmCtx.takePhotoStatus = takePhotoStatus;
         appServerPmCtx.remoteActionStatus = remoteActionStatus;
         appServerPmCtx.loadStatus = loadStatus;
@@ -135,21 +136,22 @@ public class AppRoot extends Application {
         isCurrentSettingsValid.setValue(true);
 
         MainEntity.Ctx mainEntityContext = new MainEntity.Ctx();
-        mainEntityContext.onActivityStarted = onActivityStarted;
-        mainEntityContext.onFragmentViewCreated = onFragmentViewCreated;
+        mainEntityContext.appContext = appContext;
         mainEntityContext.flushAppState = flushAppState;
         mainEntityContext.appState = appState;
-        mainEntityContext.onIncomingCall = onIncomingCall;
         mainEntityContext.navigateToMenuItem = navigateToMenuItem;
-        mainEntityContext.loadInfo = loadInfo;
         mainEntityContext.takeRemotePhoto = takeRemotePhoto;
         mainEntityContext.takePhotoStatus = takePhotoStatus;
         mainEntityContext.remoteActionStatus = remoteActionStatus;
         mainEntityContext.loadStatus = loadStatus;
         mainEntityContext.lastErrorDescription = lastErrorDescription;
-        mainEntityContext.onActivityResumed = onActivityResumed;
         mainEntityContext.isCurrentSettingsValid = isCurrentSettingsValid;
         mainEntityContext.systemNotificationService = systemNotificationService;
+        mainEntityContext.reconnectAppServer = reconnectAppServer;
+        mainEntityContext.onActivityStarted = onActivityStarted;
+        mainEntityContext.onFragmentViewCreated = onFragmentViewCreated;
+        mainEntityContext.onIncomingCall = onIncomingCall;
+        mainEntityContext.onActivityResumed = onActivityResumed;
 
         MainEntity mainEntity = new MainEntity(mainEntityContext);
         _disposables.add(mainEntity);
@@ -159,22 +161,24 @@ public class AppRoot extends Application {
         callEntityCtx.database = database;
         callEntityCtx.appState = appState;
         callEntityCtx.navigateToMenuItem = navigateToMenuItem;
-        callEntityCtx.onFragmentViewCreated = onFragmentViewCreated;
         callEntityCtx.setRemoteIsOpen = setRemoteIsOpen;
+        callEntityCtx.systemNotificationService = systemNotificationService;
+        callEntityCtx.onFragmentViewCreated = onFragmentViewCreated;
         callEntityCtx.onIncomingCall = onIncomingCall;
         callEntityCtx.onMissedCall = onMissedCall;
-        callEntityCtx.systemNotificationService = systemNotificationService;
 
         CallEntity callEntity = new CallEntity(callEntityCtx);
         _disposables.add(callEntity);
 
         SettingsEntity.Ctx settingsEntityContext = new SettingsEntity.Ctx();
-        settingsEntityContext.onActivityStarted = onActivityStarted;
-        settingsEntityContext.onFragmentViewCreated = onFragmentViewCreated;
         settingsEntityContext.flushAppState = flushAppState;
         settingsEntityContext.appState = appState;
         settingsEntityContext.navigateToMenuItem = navigateToMenuItem;
         settingsEntityContext.isCurrentSettingsValid = isCurrentSettingsValid;
+        settingsEntityContext.reconnectAppServer = reconnectAppServer;
+        settingsEntityContext.reconnectSocketServer = reconnectSocketServer;
+        settingsEntityContext.onFragmentViewCreated = onFragmentViewCreated;
+        settingsEntityContext.onActivityStarted = onActivityStarted;
 
         SettingsEntity settingsEntity = new SettingsEntity(settingsEntityContext);
         _disposables.add(settingsEntity);

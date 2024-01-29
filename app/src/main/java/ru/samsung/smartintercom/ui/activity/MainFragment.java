@@ -38,18 +38,14 @@ public class MainFragment extends BaseFragmentDisposable {
     public void setCtx(Ctx ctx) {
         _ctx = ctx;
 
-        deferDispose(_ctx.loadStatus.skip(1).subscribe(loadStatus -> {
-            showActualState();
-        }));
-        deferDispose(_ctx.remoteActionStatus.skip(1).subscribe(loadStatus -> {
-            showActualState();
-        }));
+        deferDispose(_ctx.loadStatus.skip(1).subscribe(this::showActualState));
+        deferDispose(_ctx.remoteActionStatus.skip(1).subscribe(this::showActualState));
 
-        showActualState();
+        LoadStatus loadStatus = _ctx.loadStatus.getValue();
+        showActualState(loadStatus);
     }
 
-    private void showActualState() {
-        LoadStatus loadStatus = _ctx.loadStatus.getValue();
+    private void showActualState(LoadStatus loadStatus) {
 
         if (loadStatus == LoadStatus.LOADING) {
             setFragment(LoadingFragment.class);

@@ -1,5 +1,6 @@
 package ru.samsung.smartintercom.framework.serialization;
 
+import android.graphics.Bitmap;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import ru.samsung.smartintercom.framework.ReactiveProperty;
@@ -18,6 +19,7 @@ public class Json {
 
     private static void registerConverters() {
         InstantConverter.registerConverter(_gsonBuilder);
+        BitmapConverter.registerConverter(_gsonBuilder);
 
         ReactivePropertyConverter.registerConverter(_gsonBuilder, new TypeToken<ReactiveProperty<String>>() {
         });
@@ -31,8 +33,8 @@ public class Json {
         });
         ReactivePropertyConverter.registerConverter(_gsonBuilder, new TypeToken<ReactiveProperty<Instant>>() {
         });
-
-        ReactivePropertyBitmapConverter.registerConverter(_gsonBuilder);
+        ReactivePropertyConverter.registerConverter(_gsonBuilder, new TypeToken<ReactiveProperty<Bitmap>>() {
+        });
     }
 
     public static String serialize(Object object) {

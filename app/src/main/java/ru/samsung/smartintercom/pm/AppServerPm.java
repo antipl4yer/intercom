@@ -17,8 +17,7 @@ public class AppServerPm extends BaseDisposable {
         public AppServerService appServerService;
         public ReactiveCommand<Void> takeRemotePhoto;
         public ReactiveCommand<Boolean> setRemoteIsOpen;
-        public ReactiveCommand<Void> loadInfo;
-
+        public ReactiveCommand<Void> reconnectAppServer;
         public ReactiveProperty<LoadStatus> takePhotoStatus;
         public ReactiveProperty<LoadStatus> remoteActionStatus;
         public ReactiveProperty<LoadStatus> loadStatus;
@@ -39,17 +38,11 @@ public class AppServerPm extends BaseDisposable {
             _ctx.lastErrorDescription.setValue("");
         });
 
-        deferDispose(_ctx.loadInfo.subscribe(unused -> {
-            tryConnect();
-        }));
-
-        deferDispose(_ctx.appState.isSettingsValid.skip(1).subscribe(isValid -> {
-            if (!isValid) {
-                Log.e("AppServerPm", "invalid settings");
+        deferDispose(_ctx.reconnectAppServer.subscribe(unused -> {
+            if (!_ctx.appState.isSettingsValid.getValue()) {
                 return;
             }
 
-            Log.i("AppServerPm", "settings is valid try connect");
             tryConnect();
         }));
 
@@ -61,6 +54,7 @@ public class AppServerPm extends BaseDisposable {
 
             _ctx.takePhotoStatus.setValue(LoadStatus.LOADING);
 
+            setDataHeaders();
             _ctx.appServerService.getImage(bitmap -> {
                 _ctx.appState.lastPhoto.setValue(bitmap);
                 _ctx.takePhotoStatus.setValue(LoadStatus.SUCCESS);
@@ -84,6 +78,8 @@ public class AppServerPm extends BaseDisposable {
             }
 
             _ctx.remoteActionStatus.setValue(LoadStatus.LOADING);
+
+            setDataHeaders();
             _ctx.appServerService.call(callAction, () -> {
                 _ctx.remoteActionStatus.setValue(LoadStatus.SUCCESS);
             }, errorDescription -> {
@@ -100,13 +96,9 @@ public class AppServerPm extends BaseDisposable {
             return;
         }
 
-        AppServerService.DataHeaders dataHeaders = new AppServerService.DataHeaders();
-        dataHeaders.house = _ctx.appState.houseNumber.getValue();
-        dataHeaders.flat = _ctx.appState.flatNumber.getValue();
-
-        _ctx.appServerService.setDataHeaders(dataHeaders);
-
         _ctx.loadStatus.setValue(LoadStatus.LOADING);
+
+        setDataHeaders();
         _ctx.appServerService.getInfo(info -> {
             _ctx.lastErrorDescription.setValue("");
             _ctx.appState.intercomModel.setValue(info.model);
@@ -117,5 +109,13 @@ public class AppServerPm extends BaseDisposable {
             _ctx.loadStatus.setValue(LoadStatus.FAIL);
             return null;
         });
+    }
+
+    private void setDataHeaders() {
+        AppServerService.DataHeaders dataHeaders = new AppServerService.DataHeaders();
+        dataHeaders.house = _ctx.appState.houseNumber.getValue();
+        dataHeaders.flat = _ctx.appState.flatNumber.getValue();
+
+        _ctx.appServerService.setDataHeaders(dataHeaders);
     }
 }

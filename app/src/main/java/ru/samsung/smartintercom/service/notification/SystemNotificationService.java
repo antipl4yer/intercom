@@ -29,7 +29,7 @@ public class SystemNotificationService {
 
     public void send(String title, String text) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(_context, CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);

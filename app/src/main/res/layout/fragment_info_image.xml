@@ -32,12 +32,12 @@
             android:layout_marginEnd="32dp"
             android:id="@+id/error_container"
             app:layout_constraintTop_toBottomOf="@+id/image_last_received_time"
-            tools:visibility="visible">
+            tools:visibility="visible" android:layout_marginTop="16dp">
 
         <TableRow android:layout_width="match_parent" android:layout_height="match_parent" tools:ignore="UselessParent">
             <ImageView
                     android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/image_warning"
                     app:srcCompat="@android:drawable/stat_sys_warning"
                     app:tint="#FF0000"

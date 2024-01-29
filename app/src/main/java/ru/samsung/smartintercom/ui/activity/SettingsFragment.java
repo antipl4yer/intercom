@@ -23,6 +23,8 @@ public class SettingsFragment extends BaseFragmentDisposable {
         public ReactiveCommand<Void> flushAppState;
         public ReactiveProperty<Boolean> isCurrentSettingsValid;
         public ReactiveCommand<Integer> navigateToMenuItem;
+        public ReactiveCommand<Void> reconnectSocketServer;
+        public ReactiveCommand<Void> reconnectAppServer;
     }
 
     private Ctx _ctx;
@@ -63,13 +65,13 @@ public class SettingsFragment extends BaseFragmentDisposable {
             String houseNumber = Converter.convertCharSequenceToString(_settingsHouseInput.getText().toString());
             String flatNumber = Converter.convertCharSequenceToString(_settingsFlatInput.getText().toString());
 
-            //_ctx.navigateToMenuItem.execute(R.id.button_main);
-
             _ctx.appState.flatNumber.setValue(flatNumber);
             _ctx.appState.houseNumber.setValue(houseNumber);
             _ctx.appState.isSettingsValid.setValue(true);
             _ctx.appState.isFirstRun.setValue(false);
             _ctx.flushAppState.execute(null);
+            _ctx.reconnectAppServer.execute(null);
+            _ctx.reconnectSocketServer.execute(null);
 
             _saveButton.setEnabled(false);
         });

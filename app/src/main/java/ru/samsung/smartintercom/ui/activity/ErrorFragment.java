@@ -15,8 +15,7 @@ import ru.samsung.smartintercom.state.AppState;
 public class ErrorFragment extends BaseFragmentDisposable {
     public static class Ctx {
         public AppState appState;
-        public ReactiveCommand<Void> loadInfo;
-
+        public ReactiveCommand<Void> reconnectAppServer;
         public ReactiveProperty<String> lastErrorDescription;
     }
 
@@ -42,7 +41,7 @@ public class ErrorFragment extends BaseFragmentDisposable {
         Button retryButton = view.findViewById(R.id.button_retry);
 
         retryButton.setOnClickListener(v -> {
-            _ctx.loadInfo.execute(null);
+            _ctx.reconnectAppServer.execute(null);
         });
 
         deferDispose(_ctx.lastErrorDescription.subscribe(message -> {

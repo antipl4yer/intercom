@@ -1,6 +1,5 @@
 package ru.samsung.smartintercom.util;
 
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import com.google.android.material.textfield.TextInputEditText;

@@ -112,6 +112,13 @@ public final class ReactiveProperty<T> extends Subject<T> {
         if (terminalEvent.get() != null) {
             return;
         }
+
+        T currentValue = getValue();
+
+        if (currentValue !=null && currentValue.equals(t)){
+            return;
+        }
+
         Object o = NotificationLite.next(t);
         setCurrent(o);
         for (BehaviorDisposable<T> bs : observers.get()) {

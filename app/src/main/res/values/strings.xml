@@ -29,6 +29,7 @@
         Приятной работы!\n
         \n\n
     </string>
+    <string name="internet_not_accessible">Отсутствует Интернет подключение!</string>
     <string name="intercom_model">Модель домофона</string>
     <string name="empty_intercom_model">Модель домофона отсутствует</string>
     <string name="warning">Warning</string>
